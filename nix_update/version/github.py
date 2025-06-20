@@ -67,7 +67,7 @@ def fetch_github_versions(url: ParseResult) -> list[Version]:
     if url.netloc == "api.github.com":
         server = "github.com"
     # TODO fallback to tags?
-    feed_url = f"https://{server}/{owner}/{repo}/releases.atom"
+    feed_url = f"https://{server}/{owner}/{repo.removesuffix('.git')}/releases.atom"
     info(f"fetch {feed_url}")
     resp = _dorequest(url, feed_url)
     try:
