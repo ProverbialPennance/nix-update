@@ -92,7 +92,7 @@ def fetch_github_snapshots(url: ParseResult, branch: str) -> list[Version]:
     if url.netloc == "api.github.com":
         server = "github.com"
     owner, repo = urlmatch.group("owner"), urlmatch.group("repo")
-    feed_url = f"https://{server}/{owner}/{repo}/commits/{branch}.atom"
+    feed_url = f"https://{server}/{owner}/{repo.removesuffix('.git')}/commits/{branch}.atom"
     info(f"fetch {feed_url}")
     resp = _dorequest(url, feed_url)
     try:
